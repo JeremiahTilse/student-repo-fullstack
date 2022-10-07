@@ -96,7 +96,7 @@ console.log(calculateChange(15.11));
 console.log(calculateChange(-9.74));
 // -$9.74 ==> ERROR: the number is negative
 console.log(calculateChange(4.344));
-// $4.344 ==> Error: the number is not a proper dollar amount
+// $4.344 ==> ERROR: the number is not a proper dollar amount
 console.log(calculateChange(1));
 // $1.00 ==> 1 dollars
 console.log(calculateChange(0));
