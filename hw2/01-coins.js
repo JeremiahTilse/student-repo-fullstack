@@ -11,25 +11,25 @@ const calculateChange = (input) => {
   // Zero
   if (input === 0) return '$0.00 ==> no coins';
 
-  // Not a number ==> ERROR
-  if (isNaN(input.toString())) return 'ERROR: "' + input + '" is not a number';
+  // Not a number ==> Error
+  if (isNaN(input.toString())) return 'Error: "' + input + '" is not a number';
 
-  // Negative ==> ERROR
+  // Negative ==> Error
   if (input < 0) {
     const negative = 0 - input;
-    return '-$' + negative.toString() + ' ==> ERROR: the number is negative';
+    return '-$' + negative.toString() + ' ==> Error: the number is negative';
   }
 
-  // Larger than 10 ==> ERROR
+  // Larger than 10 ==> Error
   if (input > 10)
-    return '$' + input.toString() + ' ==> ERROR: the number is to large';
+    return '$' + input.toString() + ' ==> Error: the number is to large';
 
-  // Not a proper dollar amount ==> ERROR
+  // Not a proper dollar amount ==> Error
   if (input.toString().length > 4)
     return (
       '$' +
       input.toString() +
-      ' ==> ERROR: the number is not a proper dollar amount'
+      ' ==> Error: the number is not a proper dollar amount'
     );
   // End base cases
 
@@ -94,13 +94,13 @@ console.log(calculateChange(15.11));
 
 // Additional test cases
 console.log(calculateChange(-9.74));
-// -$9.74 ==> ERROR: the number is negative
+// -$9.74 ==> Error: the number is negative
 console.log(calculateChange(4.344));
-// $4.344 ==> ERROR: the number is not a proper dollar amount
+// $4.344 ==> Error: the number is not a proper dollar amount
 console.log(calculateChange(1));
 // $1.00 ==> 1 dollars
 console.log(calculateChange(0));
 // $0.00 ==> no coins
 let notMoney = 'garbage';
 console.log(calculateChange(notMoney));
-// ERROR: "garbage" is not a number
+// Error: "garbage" is not a number
