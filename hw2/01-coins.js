@@ -12,7 +12,7 @@ const calculateChange = (input) => {
   if (input === 0) return '$0.00 ==> no coins';
 
   // Not a number ==> ERROR
-  if (isNaN(input.toString())) return 'ERROR: input is not a number';
+  if (isNaN(input.toString())) return 'ERROR: "' + input + '" is not a number';
 
   // Negative ==> ERROR
   if (input < 0) {
@@ -91,9 +91,16 @@ console.log(calculateChange(0.16));
 // $0.16 ==> 1 dime, 1 nickel, 1 penny
 console.log(calculateChange(15.11));
 // $15.11 ==> Error: the number is too large
+
+// Additional test cases
+console.log(calculateChange(-9.74));
+// -$9.74 ==> ERROR: the number is negative
 console.log(calculateChange(4.344));
 // $4.344 ==> Error: the number is not a proper dollar amount
 console.log(calculateChange(1));
 // $1.00 ==> 1 dollars
 console.log(calculateChange(0));
 // $0.00 ==> no coins
+let notMoney = 'garbage';
+console.log(calculateChange(notMoney));
+// ERROR: "garbage" is not a number
