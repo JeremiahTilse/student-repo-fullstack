@@ -16,7 +16,7 @@ const calculateChange = (input) => {
 
   // Negative ==> ERROR
   if (input < 0) {
-    let negative = 0 - input;
+    const negative = 0 - input;
     return '-$' + negative.toString() + ' ==> ERROR: the number is negative';
   }
 
@@ -31,58 +31,53 @@ const calculateChange = (input) => {
       input.toString() +
       ' ==> ERROR: the number is not a proper dollar amount'
     );
-
-  // Initialize variable (in cents) for manipulation
-  let num = input * 100;
-
-  // dollars
-  let dollars = Math.floor(num / 100);
-  num = num % 100;
-
-  // quarters
-  let quarters = Math.floor(num / 25);
-  num = num % 25;
-
-  // dimes
-  let dimes = Math.floor(num / 10);
-  num = num % 10;
-
-  // nickles
-  let nickles = Math.floor(num / 5);
-  num = num % 5;
-
-  // pennies
-  let pennies = num;
+  // End base cases
 
   // Build the output
   let output = '$' + input.toFixed(2) + ' ==> ';
+
+  // Convert input to cents for manipulation
+  let cents = input * 100;
+
+  // Separate dollars
+  const dollars = Math.floor(cents / 100);
+  cents = cents % 100;
   if (dollars > 0) {
     output = output + dollars.toString() + ' dollar';
     if (dollars > 1) output = output + 's';
-    if (quarters > 0 || dimes > 0 || nickles > 0 || pennies > 0)
-      output = output + ', ';
+    if (cents > 0) output = output + ', ';
   }
 
+  // Separate quarters
+  const quarters = Math.floor(cents / 25);
+  cents = cents % 25;
   if (quarters > 0) {
     output = output + quarters.toString() + ' quarter';
     if (quarters > 1) output = output + 's';
-    if (dimes > 0 || nickles > 0 || pennies > 0) output = output + ', ';
+    if (cents > 0) output = output + ', ';
   }
 
+  // Separate dimes
+  const dimes = Math.floor(cents / 10);
+  cents = cents % 10;
   if (dimes > 0) {
     output = output + dimes.toString() + ' dime';
     if (dimes > 1) output = output + 's';
-    if (nickles > 0 || pennies > 0) output = output + ', ';
+    if (cents > 0) output = output + ', ';
   }
 
+  // Separate nickles
+  const nickles = Math.floor(cents / 5);
+  cents = cents % 5;
   if (nickles > 0) {
     output = output + nickles.toString() + ' nickle';
     if (nickles > 1) output = output + 's';
-    if (pennies > 0) output = output + ', ';
+    if (cents > 0) output = output + ', ';
   }
 
-  if (pennies > 1) output = output + pennies.toString() + ' pennies';
-  else if (pennies > 0) output = output + pennies.toString() + ' penny';
+  // The rest in pennies
+  if (cents > 1) output = output + cents.toString() + ' pennies';
+  else if (cents > 0) output = output + cents.toString() + ' penny';
 
   return output;
 };
