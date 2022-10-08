@@ -29,7 +29,6 @@ const getData = (url) => {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(typeof data);
       data.sort();
       data.forEach((item) => {
         addCountryToList(item);
