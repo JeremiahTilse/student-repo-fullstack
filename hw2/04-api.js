@@ -13,26 +13,34 @@ let div = document.createElement('div');
 div.textContent = 'Please wait while data is fetched';
 container.append(div);
 
-const addCountryToList = (item) => {
+const addToList = (key, value) => {
   let element = document.createElement('li');
 
-  const { name, population } = item;
-
-  let itemString = name.common + ' - ' + population.toLocaleString('en-US');
+  let itemString = key + ' - ' + value.toLocaleString('en-US');
 
   element.textContent = itemString;
   list.append(element);
   div.textContent = '';
 };
 
+const addCountries = (data) => {
+  const dataKeys = Object.keys(data);
+  dataKeys.sort(new Intl.Collator('en-US').compare);
+  dataKeys.forEach((item) => {
+    addToList(item, data[item]);
+  });
+};
+
 const getData = (url) => {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      data.sort();
+      const countryPopulations = {};
       data.forEach((item) => {
-        addCountryToList(item);
+        const { name, population } = item;
+        countryPopulations[name.common] = population;
       });
+      addCountries(countryPopulations);
     }).catch;
   (error) => {
     console.log(error);
