@@ -15,7 +15,7 @@ function handleSubmit(event) {
   const feedback = form.querySelector('textarea');
 
   // Add input values to data object
-  for (let field of all) {
+  all.forEach((field) => {
     if (field.type !== 'submit' && field.type !== 'reset') {
       if (field.type == 'checkbox') {
         if (field.checked) {
@@ -25,7 +25,7 @@ function handleSubmit(event) {
         if (field.value) data[field.name] = field.value;
       }
     }
-  }
+  });
 
   // Add textarea value to data object
   if (feedback.value) data[feedback.name] = feedback.value;
