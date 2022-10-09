@@ -11,7 +11,7 @@ const list = document.querySelector('#results');
 const container = document.querySelector('.container');
 
 // Message while fetching data
-let div = document.createElement('div');
+const div = document.createElement('div');
 div.textContent = 'Please wait while data is fetched';
 container.append(div);
 

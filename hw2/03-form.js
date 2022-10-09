@@ -5,14 +5,14 @@
  */
 
 // Add your code here
-let form = document.querySelector('form');
+const form = document.querySelector('form');
 
 form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
-  let data = {};
-  let all = form.querySelectorAll('input');
-  let feedback = form.querySelector('textarea');
+  const data = {};
+  const all = form.querySelectorAll('input');
+  const feedback = form.querySelector('textarea');
 
   // Add input values to data object
   for (let field of all) {
