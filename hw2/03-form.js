@@ -33,9 +33,9 @@ function handleSubmit(event) {
   const none = 'no submission';
 
   // Process data for logging
-  if (JSON.stringify(data) === '{}')
+  if (JSON.stringify(data) === '{}') {
     console.warn('You must enter some data to submit this form');
-  else {
+  } else {
     console.groupCollapsed('========= Form Submission =========');
 
     data.name ? console.log('Name:', data.name) : console.log('Name:', none);
