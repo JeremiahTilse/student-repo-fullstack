@@ -17,7 +17,7 @@ function handleSubmit(event) {
   // Add input values to data object
   all.forEach((field) => {
     if (field.type !== 'submit' && field.type !== 'reset') {
-      if (field.type == 'checkbox') {
+      if (field.type === 'checkbox') {
         if (field.checked) {
           data[field.name] = field.value;
         }
