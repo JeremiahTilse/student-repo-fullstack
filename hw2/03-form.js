@@ -14,6 +14,7 @@ function handleSubmit(event) {
   let all = form.querySelectorAll('input');
   let feedback = form.querySelector('textarea');
 
+  // Add input values to data object
   for (let field of all) {
     if (field.type !== 'submit' && field.type !== 'reset') {
       if (field.type == 'checkbox') {
@@ -26,10 +27,12 @@ function handleSubmit(event) {
     }
   }
 
+  // Add textarea value to data object
   if (feedback.value) data[feedback.name] = feedback.value;
 
   const none = 'no submission';
 
+  // Process data for logging
   if (JSON.stringify(data) === '{}')
     console.warn('You must enter some data to submit this form');
   else {
@@ -51,5 +54,6 @@ function handleSubmit(event) {
 
     console.groupEnd();
   }
+
   event.preventDefault();
 }
