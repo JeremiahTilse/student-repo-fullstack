@@ -98,6 +98,6 @@ console.log(calculateChange(1));
 console.log(calculateChange(0));
 // $0.00 ==> no coins
 
-let notMoney = 'garbage';
+const notMoney = 'garbage';
 console.log(calculateChange(notMoney));
 // Error: "garbage" is not a number
