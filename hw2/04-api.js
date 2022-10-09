@@ -20,7 +20,7 @@ const addToList = (key, value) => {
   let element = document.createElement('li');
 
   // build string with country - population
-  let itemString = key + ' - ' + value.toLocaleString('en-US');
+  let itemString = `${key} - ${value.toLocaleString('en-US')}`;
 
   // Add string to list element
   element.textContent = itemString;

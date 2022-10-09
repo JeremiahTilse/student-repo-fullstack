@@ -33,7 +33,7 @@ function reverseInput() {
     reversed = reversed.join('');
 
     // Output original and reverse
-    output.textContent = original + ' --> ' + reversed;
+    output.textContent = `${original} --> ${reversed}`;
     console.log('Input: ', input.value, ' - Reversed: ', reversed);
   } else {
     // Output error
