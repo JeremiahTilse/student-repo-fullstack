@@ -1,3 +1,5 @@
+/** @format */
+
 const http = require('http');
 const port = process.env.PORT || 5001;
 
@@ -28,7 +30,7 @@ const server = http.createServer((req, res) => {
     let result = '';
 
     routes.forEach(
-      (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
+      (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`),
     );
 
     return result;
@@ -44,6 +46,76 @@ const server = http.createServer((req, res) => {
   }
 
   // Add your code here
+  // Welcome page
+  else if (req.url === '/welcome') {
+    let routeResults = getRoutes();
+
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`<h1>Exercise 01</h1>`);
+    res.write(`<ul> ${routeResults} </ul>`);
+    res.write(`<h2>Welcome</h2>`);
+    res.write(`<p>This is my Welcome page.  Not much to see here</p>`);
+    res.end();
+  }
+
+  // Redirect
+  else if (req.url === '/redirect') {
+    res.statusCode = 302;
+    res.setHeader('Location', '/redirected');
+    res.end();
+  }
+
+  // Redirected
+  else if (req.url === '/redirected') {
+    let routeResults = getRoutes();
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`<h1>Exercise 01</h1>`);
+    res.write(`<ul> ${routeResults} </ul>`);
+    res.write(`<h2>Redirected</h2>`);
+    res.write(
+      `<p>You were either redirected to this page, or came here using a direct link</p>`,
+    );
+    res.end();
+  }
+
+  // Cache
+  else if (req.url === '/cache') {
+    let routeResults = getRoutes();
+    //TODO: Read up on caching and implement this properly
+    res.writeHead(200, {
+      'Content-Type': 'text/html',
+      'Cache-Control': 'max-age=86400',
+    });
+    res.write(`<h1>Exercise 01</h1>`);
+    res.write(`<ul> ${routeResults} </ul>`);
+    res.write(`<h2>Cache</h2>`);
+    res.write(`<p>this resource was cached</p>`);
+    res.end();
+  }
+
+  // Cookie
+  else if (req.url === '/cookie') {
+    //TODO: Read up on cookies and implement this properly
+    res.write(`cookies... yummm`);
+    res.end();
+  }
+
+  // Check-Cookies
+  else if (req.url === '/check-cookies') {
+    //TODO: Read up on cookies and implement this properly
+    res.write(`need to check cookies`);
+    res.end();
+  }
+
+  // Other
+  else {
+    let routeResults = getRoutes();
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.write(`<h1>Exercise 01</h1>`);
+    res.write(`<ul> ${routeResults} </ul>`);
+    res.write(`<h2>404: Page not found</h2>`);
+    res.end();
+  }
 });
 
 server.listen(port, () => {
