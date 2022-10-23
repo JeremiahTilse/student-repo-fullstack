@@ -1,3 +1,5 @@
+/** @format */
+
 const http = require('http');
 const port = process.env.PORT || 5001;
 
@@ -16,7 +18,7 @@ const server = http.createServer((req, res) => {
     let result = '';
 
     routes.forEach(
-      (elem) => (result += `<li><a href="${elem}">${elem}</a></li>`)
+      (elem) => (result += `<li><a href="${elem}">${elem}</a></li>`),
     );
 
     return result;
@@ -32,7 +34,30 @@ const server = http.createServer((req, res) => {
   }
 
   // Add your code here
+  else {
+    let routeResults = getRoutes();
 
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`<h1>Exercise 02</h1>`);
+
+    res.write(`<ul> ${routeResults} </ul>`);
+
+    // Get and parse path for heading
+    let pathname = url.pathname;
+    pathname = pathname.substring(1);
+    pathname = pathname.charAt(0).toUpperCase() + pathname.slice(1);
+    res.write(`<h2> ${pathname} </h2>`);
+
+    // Get parameters and create table
+    let params = url.searchParams;
+    res.write(`<table style='border: 1px solid black'>`);
+    for (const [key, value] of params) {
+      res.write(
+        `<tr><td style='border: 1px solid black'>${key}</td><td style='border: 1px solid black'>${value}</td></tr>`,
+      );
+    }
+    res.write(`</table>`);
+  }
   res.end();
 });
 
