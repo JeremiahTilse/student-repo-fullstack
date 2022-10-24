@@ -44,7 +44,11 @@ const server = http.createServer((req, res) => {
 
     // Get and parse path for heading
     let pathname = url.pathname;
+
+    // Trim slash from string
     pathname = pathname.substring(1);
+
+    // Capitalize pathname for heading
     pathname = pathname.charAt(0).toUpperCase() + pathname.slice(1);
     res.write(`<h2> ${pathname} </h2>`);
 
