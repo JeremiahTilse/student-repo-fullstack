@@ -113,7 +113,6 @@ const server = http.createServer((req, res) => {
     } else {
       res.write(`no`);
     }
-    res.write(`\nneed to check cookies`);
     res.end();
   }
 
