@@ -81,7 +81,6 @@ const server = http.createServer((req, res) => {
   // Cache
   else if (req.url === '/cache') {
     let routeResults = getRoutes();
-    //TODO: Read up on caching and implement this properly
     res.writeHead(200, {
       'Content-Type': 'text/html',
       'Cache-Control': 'max-age=86400',
@@ -95,15 +94,26 @@ const server = http.createServer((req, res) => {
 
   // Cookie
   else if (req.url === '/cookie') {
-    //TODO: Read up on cookies and implement this properly
+    res.writeHead(200, {
+      'Set-Cookie': 'hello=world',
+    });
     res.write(`cookies... yummm`);
     res.end();
   }
 
   // Check-Cookies
   else if (req.url === '/check-cookies') {
-    //TODO: Read up on cookies and implement this properly
-    res.write(`need to check cookies`);
+    if (
+      req.headers.cookie &&
+      req.headers.cookie
+        .split(';')
+        .some((item) => item.trim().startsWith('hello='))
+    ) {
+      res.write(`yes`);
+    } else {
+      res.write(`no`);
+    }
+    res.write(`\nneed to check cookies`);
     res.end();
   }
 
