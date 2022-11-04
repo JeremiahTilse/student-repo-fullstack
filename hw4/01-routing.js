@@ -98,7 +98,9 @@ app.get('/cookie', (req, res) => {
 
 // 404
 app.use((req, res) => {
-  res.status(404).send(`
+  res.status(404);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send(`
     <h1>Exercise 04</h1>
     <ul> ${routeResults} </ul>
     <h2>404</h2>
