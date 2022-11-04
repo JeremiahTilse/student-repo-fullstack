@@ -1,3 +1,5 @@
+/** @format */
+
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5001;
@@ -25,24 +27,84 @@ let getRoutes = () => {
   let result = '';
 
   routes.forEach(
-    (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
+    (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`),
   );
 
   return result;
 };
 
-app.get('/', (req, res) => {
-  let routeResults = getRoutes();
+let routeResults = getRoutes();
 
+app.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write(`<h1>Exercise 04</h1>`);
   res.write(`<ul> ${routeResults} </ul>`);
   res.end();
 });
 
-app.get('/welcome', (req, res) => {});
-
 // Add your code here
+// Welcome
+app.get('/welcome', (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send(`
+    <h1>Exercise 04</h1>
+    <ul> ${routeResults} </ul>
+    <h2>Welcome</h2>
+    <p>This is my Welcome page.  Not much to see here</p>
+  `);
+});
+
+// Redirect and Redirected
+app.get('/redirect', (req, res) => {
+  res.redirect('/redirected');
+});
+
+app.get('/redirected', (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send(`
+    <h1>Exercise 04</h1>
+    <ul> ${routeResults} </ul>
+    <h2>Redirected</h2>
+    <p>You were either redirected to this page, or came here using a direct link</p>
+  `);
+});
+
+// Cache
+app.get('/cache', (req, res) => {
+  res.status(200);
+  res.set({
+    'Content-Type': 'text/html',
+    'Cache-control': 'max-age=86400',
+  });
+  res.send(`
+    <h1>Exercise 04</h1>
+    <ul> ${routeResults} </ul>
+    <h2>Cache</h2>
+    <p>This resources was cached</p>
+  `);
+});
+
+// Cookie
+app.get('/cookie', (req, res) => {
+  res.status(200);
+  res.set({
+    'Content-Type': 'text/plain',
+    'Set-Cookie': 'hello=world',
+  });
+  res.send(`cookies… yummm`);
+});
+
+// 404
+app.use((req, res) => {
+  res.status(404).send(`
+    <h1>Exercise 04</h1>
+    <ul> ${routeResults} </ul>
+    <h2>404</h2>
+    <p>Page not found</p>
+  `);
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
