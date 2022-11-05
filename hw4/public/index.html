@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,5 +9,42 @@
   </head>
   <body>
     <!-- Add your code here -->
+    <h1>Exercise 04</h1>
+    <ul></ul>
+    <h2>Contact Form</h2>
+    <form method="post" action="/submit">
+      <div style="margin: 4px">
+        <label style="display: block" for="userName">Name *</label>
+        <input
+          style="display: block"
+          type="text"
+          name="userName"
+          id="userName"
+          required
+        />
+      </div>
+      <div style="margin: 4px">
+        <label style="display: block" for="email">Email *</label>
+        <input
+          style="display: block"
+          type="email"
+          name="email"
+          id="email"
+          required
+        />
+      </div>
+      <div style="margin: 4px">
+        <label style="display: block" for="message">Comment (optional):</label>
+        <textarea style="display: block" name="message" id="message"></textarea>
+      </div>
+      <div style="margin: 4px">
+        <input type="checkbox" name="signUp" id="signUp" />
+        <label for="signUp">Sign up for the newsletter</label>
+      </div>
+      <div style="margin: 4px">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+      </div>
+    </form>
   </body>
 </html>
