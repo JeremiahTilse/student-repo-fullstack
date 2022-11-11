@@ -14,13 +14,13 @@ const generateOutput = (req, res, next) => {
   let output = `Currently on route: ${path}\n\n`;
   if (req.session.routes === undefined) {
     req.session.routes = [];
-    req.session.routes.push(path);
+    if (path !== '/favicon.ico') req.session.routes.push(path);
     output += `Welcome to http://localhost:${port}`;
   } else {
     let previously = `Previously visited:\n  `;
     previously += req.session.routes.join('\n  ');
     output += previously;
-    req.session.routes.push(path);
+    if (path !== '/favicon.ico') req.session.routes.push(path);
   }
   req.generateOutput = output;
   next();
