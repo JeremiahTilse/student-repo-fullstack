@@ -1,3 +1,5 @@
+/** @format */
+
 const express = require('express');
 const axios = require('axios');
 
@@ -11,7 +13,25 @@ app.set('view engine', 'pug');
 // REST Countries URL
 const url = 'https://restcountries.com/v3.1/all';
 
+const countryData = [];
+
 // Add your code here
+const getData = (url) => {
+  axios
+    .get(url)
+    .then((response) => {
+      response.data.forEach((item) => {
+        countryData.push(item);
+      });
+    })
+    .catch((error) => {
+      // Error logging and display
+      console.log(error);
+      div.textContent = 'An error occurred. Please try again.';
+    });
+};
+
+getData(url);
 
 app.get('/', (req, res) => {
   // render pug template for the index.html file
@@ -25,8 +45,14 @@ app.get('/', (req, res) => {
 app.get('/capitals', (req, res) => {
   // map the output array to create an array with country names and capitals
   // check for empty data in the output array
+  let countries = [];
 
-  let countries = ['Afghanistan', 'Aland Islands', 'Albania'];
+  countryData.forEach((item) => {
+    let capitals = item.capital;
+    if (capitals === undefined) capitals = `no data`;
+    countries.push(`${item.name.common} - ${capitals}`);
+  });
+  countries.sort(new Intl.Collator('en-US').compare);
 
   res.render('page', {
     heading: 'Countries and Capitals',
@@ -39,7 +65,21 @@ app.get('/populous', (req, res) => {
   // sort the resulting array to show the results in order of population
   // map the resulting array into a new array with the country name and formatted population
 
-  let populous = ['China', 'India', 'United States of America'];
+  let populous = [];
+
+  // Sort data by population, greatest to least
+  countryData.sort((a, b) => {
+    return b.population - a.population;
+  });
+
+  // Push onto array, if population is greater than 50 million
+  countryData.forEach((item) => {
+    if (item.population >= 50000000) {
+      populous.push(
+        `${item.name.common} - ${item.population.toLocaleString('en-US')}`,
+      );
+    }
+  });
 
   res.render('page', {
     heading: 'Most Populous Countries',
@@ -50,8 +90,20 @@ app.get('/populous', (req, res) => {
 app.get('/regions', (req, res) => {
   // reduce the output array in a resulting object that will feature the numbers of countries in each region
   // disregard empty data from the output array
+  const regionCounter = {};
+  let regions = [];
 
-  let regions = ['Asia - 50', 'Europe - 53', 'Africa - 60'];
+  countryData.forEach((item) => {
+    if (regionCounter[item.region] === undefined)
+      regionCounter[item.region] = 0;
+    regionCounter[item.region] += 1;
+  });
+
+  Object.keys(regionCounter).forEach((region) => {
+    regions.push(`${region} - ${regionCounter[region]}`);
+  });
+
+  regions.sort(new Intl.Collator('en-US').compare);
 
   res.render('page', {
     heading: 'Regions of the World',
